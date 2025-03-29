@@ -18,37 +18,42 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of mitools is to ...
+mitools is an R package designed to help users create sets of variables based on a mutual information approach. In this context, a set is a collection of distinct elements (e.g., variables) that can also be treated as a single entity. Mutual information, a concept from probability theory, quantifies the dependence between two variables by expressing how much information about one variable can be gained from observing the other.
 
 ## Installation
 
-You can install the development version of mitools like so:
+You can install mitools like with the following code snippet:
 
 ``` r
-# FILL THIS IN! HOW CAN PEOPLE INSTALL YOUR DEV PACKAGE?
+devtools::install_github('nicolasleenaerts/mitools')
 ```
 
-## Example
+## Pairing variables
 
-This is a basic example which shows you how to solve a common problem:
+You can create sets of variables with the *pairmi* function. It takes a dataframe of variables and pairs them until a certain depth (i.e., a maximum number of elements). For each set of variables, the mutual information between the variables is calculated, after which a G-statistic is calculated and evalauted for its significance under a chi-squared distribution with a prespecified alpha. Alternatively, the user can set a certain threshold of mutual information to determine the significance of the sets. 
 
-```{r example}
-library(mitools)
-## basic example code
+```{r example 1, results='hide',message=FALSE}
+# Loading the package, which automatically also downloads the example data (misimdata)
+library(mitools) 
+
+# Pairing variables
+results = pairmi(misimdata[,2:6])
+
+# View data with sets added
+View(results$expanded.data)
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
-
-```{r cars}
-summary(cars)
+```{r table 1,echo=FALSE,results='asis'}
+knitr::kable(results$expanded.data[c(1:5),],caption = 'Table 1. Expanded Data',align = c('c'))
 ```
 
-You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date. `devtools::build_readme()` is handy for this.
-
-You can also embed plots, for example:
-
-```{r pressure, echo = FALSE}
-plot(pressure)
+```{r example 2,results='hide',message=FALSE}
+# View information on the sets
+View(results$pairs)
 ```
 
-In that case, don't forget to commit and push the resulting figure files, so they display on GitHub and CRAN.
+```{r table 2,echo=FALSE,results='asis'}
+knitr::kable(results$pairs,caption = 'Table 2. Information on sets',align = c('c'))
+```
+
+
