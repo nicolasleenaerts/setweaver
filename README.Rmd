@@ -76,7 +76,7 @@ You can visualize the sets created with the *pairmi* function using the *setmapm
 
 ```{r example4,dev='png', fig.show='hide',message=FALSE}
 # Visualizing the sets
-setmapmi(results$original.variables,results$sets,2)
+setmapmi(results$original.variables,results$sets,n_elements = 2)
 ```
 
 ![Plot 1. Setmap of sets that consist of 2 elements](`r knitr::fig_chunk('example4', 'png')`)

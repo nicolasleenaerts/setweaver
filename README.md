@@ -107,7 +107,7 @@ in sets of a given size.
 
 ``` r
 # Visualizing the sets
-setmapmi(results$original.variables,results$sets,2)
+setmapmi(results$original.variables,results$sets,n_elements = 2)
 ```
 
 <figure>
