@@ -1,10 +1,5 @@
 
-<!-- README.md is generated from README.Rmd. Please edit that file -->
-
 # mitools
-
-<!-- badges: start -->
-<!-- badges: end -->
 
 *mitools* is an R package designed to help users create sets of
 variables based on a mutual information approach. In this context, a set
@@ -13,6 +8,11 @@ treated as a single entity. Mutual information, a concept from
 probability theory, quantifies the dependence between two variables by
 expressing how much information about one variable can be gained from
 observing the other.
+
+## Authors
+
+[Aaron Fisher](https://psychology.berkeley.edu/people/aaron-fisher)  
+[Nicolas Leenaerts](https://nicolasleenaerts.github.io/)
 
 ## Installation
 
