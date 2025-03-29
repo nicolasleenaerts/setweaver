@@ -41,7 +41,7 @@ probstat <- function(y, x, nfolds,seed=10101){
   dat_dfs = c()
 
   # Create progress bar
-  print('Calculating entropy')
+  message('Calculating entropy')
   pb = txtProgressBar(min = 0, max = (nfolds), initial = 0)
 
   # Loop over folds

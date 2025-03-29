@@ -1,38 +1,38 @@
 #' pairmi
-#' @description A function that calculates the mutual information for pairs of variables, calculates the G statistic, determines the significance of the pairs, and only keeps those that are significant.
+#' @description A function that calculates the mutual information for sets of variables, calculates the G statistic, determines the significance of the sets, and only keeps those that are significant.
 #'
 #' @param data A data.frame object with the variables that you want to pair up
-#' @param p.threshold A numerical value indicating the p-value that is used to determine the significance of a pair
-#' @param MI.threshold A numerical value indicating the MI value that is used to determine the significance of a pair. Overrides the p-value
-#' @param depth An integer indicating the maximum number of variables a pair can have
-#' @param sep A string which will be used to seperate the variables in the pair name
+#' @param alpha A numerical value indicating the p-value that is used to determine the significance of a set
+#' @param MI.threshold A numerical value indicating the MI value that is used to determine the significance of a set Overrides the p-value
+#' @param n_elements An integer indicating the maximum number of variables a set can have
+#' @param sep A string which will be used to separate the variables in the pair name
 #'
 #' @return A list that includes
-#' (1) A data.frame object with the original data and the data of the significant pairs
-#' (2) A vector with the orignal variable names
-#' (3) A data.frame object with information on the significant pairs
+#' (1) A data.frame object with the original data and the data of the significant sets
+#' (2) A vector with the original variable names
+#' (3) A data.frame object with information on the significant sets
 #' @export
 #'
 #' @examples
 #' pairmi(misimdata[,2:6])
-pairmi <- function(data,p.threshold=0.05,MI.threshold=NULL,depth=5,sep='_'){
+pairmi <- function(data,alpha=0.05,MI.threshold=NULL,n_elements=5,sep='_'){
 
   # Create df to store information about the pairs
   pairs_retained_df = data.frame(matrix(ncol=5))[-1,]
-  colnames(pairs_retained_df) = c('depth','pair','mi','relative.mi','p')
+  colnames(pairs_retained_df) = c('n_elements','set','mi','relative.mi','p')
 
   # Get original variables
   orig_variables = colnames(data)
 
   # Create progress bar
   message('Pairing Data')
-  pb = txtProgressBar(min = 0, max = (depth-1), initial = 0)
+  pb = txtProgressBar(min = 0, max = (n_elements-1), initial = 0)
 
   # Create Pairs
-  for (depth_level in 2:depth){
+  for (depth_level in 2:n_elements){
 
     # Reduce the number of variables to pair
-    if (depth_level>2) {search_data=dplyr::select(data,c(dplyr::all_of(orig_variables),pairs_retained_df$pair[pairs_retained_df$depth==(depth_level-1)]))
+    if (depth_level>2) {search_data=dplyr::select(data,c(dplyr::all_of(orig_variables),pairs_retained_df$set[pairs_retained_df$n_elements==(depth_level-1)]))
     } else {search_data=data}
 
     # Get all possible combinations of the variables
@@ -43,7 +43,7 @@ pairmi <- function(data,p.threshold=0.05,MI.threshold=NULL,depth=5,sep='_'){
 
       # Only retain pairs with a variable of the original data and a variable of the previous depth level
       search_df$orig_variable_in_pair = ifelse(search_df$X1%in%dplyr::all_of(orig_variables)|search_df$X2%in%dplyr::all_of(orig_variables),1,0)
-      search_df$highest_depth_in_pair = ifelse(search_df$X1%in%pairs_retained_df$pair[pairs_retained_df$depth==(depth_level-1)]|search_df$X2%in%pairs_retained_df$pair[pairs_retained_df$depth==(depth_level-1)],1,0)
+      search_df$highest_depth_in_pair = ifelse(search_df$X1%in%pairs_retained_df$set[pairs_retained_df$n_elements==(depth_level-1)]|search_df$X2%in%pairs_retained_df$set[pairs_retained_df$n_elements==(depth_level-1)],1,0)
       search_df$retain = ifelse(search_df$orig_variable_in_pair==1&search_df$highest_depth_in_pair==1,1,0)
       search_df = subset(search_df,retain==1)
 
@@ -66,20 +66,20 @@ pairmi <- function(data,p.threshold=0.05,MI.threshold=NULL,depth=5,sep='_'){
 
     # Only keep the pairs which the user wants to retain
     if (is.null(MI.threshold)==T){
-      search_df = subset(search_df,p<p.threshold)
+      search_df = subset(search_df,p<alpha)
     }
     else{
       search_df = subset(search_df,mi_pairs>MI.threshold)
     }
 
     # Stop if no pairs are retained
-    if (nrow(search_df)==0){message(paste('stopped at depth',(depth_level-1)))
+    if (nrow(search_df)==0){message(paste('stopped at max number of elements:',(depth_level-1)))
       break}
 
     # Add MI of variables of the previous depth level
     if (depth_level >2){
       if (depth_level==4){break}
-      search_df = merge(x = search_df, y = dplyr::select(subset(pairs_retained_df,depth==(depth_level-1)),'mi','pair'), by.x = 'X2',by.y = 'pair', all.x = TRUE)
+      search_df = merge(x = search_df, y = dplyr::select(subset(pairs_retained_df,n_elements==(depth_level-1)),'mi','set'), by.x = 'X2',by.y = 'set', all.x = TRUE)
       search_df$mi_diff = search_df$mi_pairs - search_df$mi
     }
     else{
@@ -95,8 +95,8 @@ pairmi <- function(data,p.threshold=0.05,MI.threshold=NULL,depth=5,sep='_'){
 
     # Add retained pairs to retained pairs df
     current_rows=nrow(pairs_retained_df)
-    pairs_retained_df[(current_rows+1):(current_rows+nrow(search_df)),'depth'] = depth_level
-    pairs_retained_df[(current_rows+1):(current_rows+nrow(search_df)),'pair'] = search_df$pair_names
+    pairs_retained_df[(current_rows+1):(current_rows+nrow(search_df)),'n_elements'] = depth_level
+    pairs_retained_df[(current_rows+1):(current_rows+nrow(search_df)),'set'] = search_df$pair_names
     pairs_retained_df[(current_rows+1):(current_rows+nrow(search_df)),'mi'] = search_df$mi_pairs
     pairs_retained_df[(current_rows+1):(current_rows+nrow(search_df)),'relative.mi'] = search_df$mi_diff
     pairs_retained_df[(current_rows+1):(current_rows+nrow(search_df)),'p'] = search_df$p
@@ -119,7 +119,7 @@ pairmi <- function(data,p.threshold=0.05,MI.threshold=NULL,depth=5,sep='_'){
   # Store the rest of the results
   results_list$expanded.data = data
   results_list$original.variables = orig_variables
-  results_list$pairs = pairs_retained_df
+  results_list$sets = pairs_retained_df
 
   # Return results
   return(results_list)
