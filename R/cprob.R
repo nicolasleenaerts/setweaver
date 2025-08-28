@@ -9,6 +9,6 @@
 #' @examples
 #' cprob(misimdata$y,misimdata$x1)
 cprob <- function(y, x) {
-  CP <- ((length(which(x == 1 & y == 1)))/(length(na.omit(x))))/(length(which(x == 1))/length(na.omit(x)))
+  CP <- ((base::length(base::which(x == 1 & y == 1)))/(base::length(stats::na.omit(x))))/(base::length(base::which(x == 1))/base::length(stats::na.omit(x)))
   return(CP)
 }

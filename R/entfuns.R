@@ -9,8 +9,8 @@
 #' @examples
 #' entfuns(misimdata$y,misimdata[,2:5])
 entfuns <- function(y,x){
-  xvars= data.frame(xvars=colnames(x))
-  dat = apply(x,2,function(x) {
+  xvars= base::data.frame(xvars=base::colnames(x))
+  dat = base::apply(x,2,function(x) {
     xprob = prob(x)
     yprob = prob(y)
     cprob = cprob(y, x)
@@ -23,8 +23,8 @@ entfuns <- function(y,x){
     ce = ce(y, x)
     cedif = yent - ce # Δ between marginal and conditional
     cedifper = cedif/yent # percent Δ between marginal and conditional
-    cbind(yprob,xprob,cprob,cprobx,cprobi,cpdif,cpdifper,xent,yent,ce,cedif,cedifper)
+    base::cbind(yprob,xprob,cprob,cprobx,cprobi,cpdif,cpdifper,xent,yent,ce,cedif,cedifper)
   },simplify=F)
-  dat = cbind(xvars,do.call(rbind, dat))
+  dat = base::cbind(xvars,base::do.call(base::rbind, dat))
   return(dat)
 }

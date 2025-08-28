@@ -6,23 +6,20 @@
 #' @param n_elements The depth of sets that you want to visualize (Integer)
 #'
 #' @return A setmap showing which original variables make up the sets at a certain depth
-#' @import dplyr
 #' @export
 #'
 #' @examples
-#' setmapmi(pairmiresults$original.variables,pairmiresults$sets,2)
+#' pairmiresult = pairmi(misimdata[,2:6])
+#' setmapmi(pairmiresult$original.variables,pairmiresult$sets,2)
 setmapmi <- function(original.variables = NULL,sets=NULL,n_elements=NULL){
 
-  # Load dplyr
-  require(dplyr)
-
   # Extract pairs from the requested pair level
-  sets = subset(sets,sets$n_elements==n_elements)
+  sets = base::subset(sets,sets$n_elements==n_elements)
 
   # Split pairs into sets
-  combos = data.frame(sets['set'] %>% rowwise() %>% mapply(grepl,original.variables,.))
-  combos = apply(combos,1, function(x) list(names(which(x))))
-  combos = lapply(combos, "[[", 1)
+  combos = base::sapply(original.variables,function(x){base::apply(sets['set'],1,function(y){base::grepl(x,y)})})
+  combos = base::apply(combos,1, function(x) base::list(base::names(base::which(x))))
+  combos = base::unname(base::lapply(combos, "[[", 1))
 
   # Create Venn object
   sets = RVenn::Venn(combos)

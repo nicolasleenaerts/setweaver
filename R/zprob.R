@@ -9,8 +9,8 @@
 #' @examples
 #' zprob(misimdata$x1)
 zprob <- function(x) {
-  PX <- (length(which(x == 1)))/(length(na.omit(x)))
-  SE <- sqrt((PX * (1 - PX))/length(na.omit(x)))
+  PX <- (base::length(base::which(x == 1)))/(base::length(stats::na.omit(x)))
+  SE <- base::sqrt((PX * (1 - PX))/base::length(stats::na.omit(x)))
   Z <- PX/SE
   return(Z)
 }

@@ -1,3 +1,3 @@
-## code to prepare `DATASET` dataset goes here
+## code to prepare dataset
 
 usethis::use_data(misimdata, overwrite = TRUE)

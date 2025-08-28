@@ -4,27 +4,33 @@
 \alias{pairmi}
 \title{pairmi}
 \usage{
-pairmi(data, p.threshold = 0.05, MI.threshold = NULL, depth = 5, sep = "_")
+pairmi(data, alpha = 0.05, MI.threshold = NULL, n_elements = 5, sep = "_")
 }
 \arguments{
 \item{data}{A data.frame object with the variables that you want to pair up}
 
-\item{p.threshold}{A numerical value indicating the p-value that is used to determine the significance of a pair}
+\item{alpha}{A numerical value indicating the p-value that is used to
+determine the significance of a set}
 
-\item{MI.threshold}{A numerical value indicating the MI value that is used to determine the significance of a pair. Overrides the p-value}
+\item{MI.threshold}{A numerical value indicating the MI value that is used to
+determine the significance of a set Overrides the p-value}
 
-\item{depth}{An integer indicating the maximum number of variables a pair can have}
+\item{n_elements}{An integer indicating the maximum number of variables a set
+can have}
 
-\item{sep}{A string which will be used to seperate the variables in the pair name}
+\item{sep}{A string which will be used to separate the variables in the pair
+name}
 }
 \value{
-A list that includes
-(1) A data.frame object with the original data and the data of the significant pairs
-(2) A vector with the orignal variable names
-(3) A data.frame object with information on the significant pairs
+A list that includes (1) A data.frame object with the original data
+  and the data of the significant sets (2) A vector with the original
+  variable names (3) A data.frame object with information on the significant
+  sets
 }
 \description{
-A function that calculates the mutual information for pairs of variables, calculates the G statistic, determines the significance of the pairs, and only keeps those that are significant.
+A function that calculates the mutual information for sets of
+  variables, calculates the G statistic, determines the significance of the
+  sets, and only keeps those that are significant.
 }
 \examples{
 pairmi(misimdata[,2:6])

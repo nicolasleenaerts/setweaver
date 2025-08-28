@@ -9,6 +9,6 @@
 #' @examples
 #' cprob_inv(misimdata$y,misimdata$x1)
 jtct <- function(y, x) {
-  JTCT <- length(which(x[complete.cases(x, y) == TRUE] == 1 & y[complete.cases(x, y) == TRUE] == 1))
+  JTCT <- base::length(base::which(x[stats::complete.cases(x, y) == TRUE] == 1 & y[stats::complete.cases(x, y) == TRUE] == 1))
   return(JTCT)
 }

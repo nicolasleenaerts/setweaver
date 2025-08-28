@@ -1,7 +1,7 @@
 
-# mitools
+# setweaver
 
-*mitools* is an R package designed to help users create sets of
+*setweaver* is an R package designed to help users create sets of
 variables based on a mutual information approach. In this context, a set
 is a collection of distinct elements (e.g., variables) that can also be
 treated as a single entity. Mutual information, a concept from
@@ -16,10 +16,10 @@ observing the other.
 
 ## Installation
 
-You can install *mitools* with the following code snippet:
+You can install *setweaver* with the following code snippet:
 
 ``` r
-devtools::install_github('nicolasleenaerts/mitools')
+devtools::install_github('nicolasleenaerts/setweaver')
 ```
 
 ## Pairing variables
@@ -35,7 +35,7 @@ the sets.
 
 ``` r
 # Loading the package, which automatically also downloads the example data (misimdata)
-library(mitools) 
+library(setweaver) 
 
 # Pairing variables
 results = pairmi(misimdata[,2:11],alpha = 0.05,n_elements = 5)

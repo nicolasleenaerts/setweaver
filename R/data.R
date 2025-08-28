@@ -1,6 +1,6 @@
 #' @title misimdata
 #'
-#' @description A data set with 10 predictors and 1 outcome that can be used to try out the functions of the mitools package
+#' @description A data set with 10 predictors and 1 outcome that can be used to try out the functions of the setweaver package
 #'
 #' @format A data frame with 2500 rows and 11 variables:
 #' \describe{
@@ -16,5 +16,4 @@
 #'   \item{x9}{Ninth binary predictor}
 #'   \item{x10}{Tenth binary predictor}
 #' }
-#' @source <https://www.github.com/mvuorre/exampleRPackage>
 "misimdata"

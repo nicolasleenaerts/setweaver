@@ -9,6 +9,6 @@
 #' @examples
 #' joint(misimdata$y,misimdata$x1)
 joint <- function(y, x) {
-  JP <- (length(which(x[complete.cases(x, y) == TRUE] == 1 & y[complete.cases(x, y) == TRUE] == 1)))/(length(x[complete.cases(x, y) == TRUE]))
+  JP <- (base::length(base::which(x[stats::complete.cases(x, y) == TRUE] == 1 & y[stats::complete.cases(x, y) == TRUE] == 1)))/(base::length(x[stats::complete.cases(x, y) == TRUE]))
   return(JP)
 }

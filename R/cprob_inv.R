@@ -9,6 +9,6 @@
 #' @examples
 #' cprob_inv(misimdata$y,misimdata$x1)
 cprob_inv <- function(y, x) {
-  CP <- ((length(which(x == 0 & y == 1)))/(length(na.omit(x))))/(length(which(x == 0))/length(na.omit(x)))
+  CP <- ((base::length(base::which(x == 0 & y == 1)))/(base::length(stats::na.omit(x))))/(base::length(base::which(x == 0))/base::length(stats::na.omit(x)))
   return(CP)
 }

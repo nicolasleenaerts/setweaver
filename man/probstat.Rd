@@ -4,12 +4,19 @@
 \alias{probstat}
 \title{probstat}
 \usage{
-probstat(y, x, nfolds, seed = 10101)
+probstat(y, x, test = "Fisher", ri, nfolds, seed = 10101)
 }
 \arguments{
 \item{y}{Outcome (vector)}
 
-\item{x}{Predictor (a data.frame object, typically the expanded dataset from the pairmi function)}
+\item{x}{Predictor (a data.frame object, typically the expanded dataset from
+the pairmi function)}
+
+\item{test}{String indicating whether a Fisher's exact test or a Generalized
+linear mixed model needs to be performed (Integer)}
+
+\item{ri}{Data of the variable that should be used as a random intercept in
+the Generalized linear mixed model (vector)}
 
 \item{nfolds}{Number of folds for the cross-validation (Integer)}
 
@@ -17,22 +24,20 @@ probstat(y, x, nfolds, seed = 10101)
 }
 \value{
 A data.frame object giving the following parameters for each pair:
-xprob = probability of X
-yprob = probability of Y
-cprob = conditional probability of Y given X
-cprobx = = conditional probability of X given Y
-cprobi = inverse conditional probability of Y given X
-cpdif = difference between marginal and conditional probability of Y
-cpdifper = percentagewise difference between marginal and conditional probability of Y
-xent = entropy of X
-yent = entropy of Y
-ce = conditional entropy
-cedif = difference between marginal and conditional entropy of Y
-cedifper = percentagewise difference between marginal and conditional entropy of Y
+  xprob = probability of X yprob = probability of Y cprob = conditional
+  probability of Y given X cprobx = = conditional probability of X given Y
+  cprobi = inverse conditional probability of Y given X cpdif = difference
+  between marginal and conditional probability of Y cpdifper = percentagewise
+  difference between marginal and conditional probability of Y xent = entropy
+  of X yent = entropy of Y ce = conditional entropy cedif = difference
+  between marginal and conditional entropy of Y cedifper = percentagewise
+  difference between marginal and conditional entropy of Y p = p-value
+  returned by the Fisher's exact test or Generalized linear mized model
 }
 \description{
 probstat
 }
 \examples{
-probstat(misimdata$y,pairmiresult$expanded.data,5)
+pairmiresult = pairmi(misimdata[,2:6])
+probstat(misimdata$y,pairmiresult$expanded.data,nfolds=5)
 }
