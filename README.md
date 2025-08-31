@@ -1,6 +1,12 @@
 
 # setweaver
 
+<!-- badges: start -->
+
+[![CRAN
+status](https://www.r-pkg.org/badges/version/setweaver)](https://CRAN.R-project.org/package=setweaver)
+<!-- badges: end -->
+
 *setweaver* is an R package designed to help users create sets of
 variables based on a mutual information approach. In this context, a set
 is a collection of distinct elements (e.g., variables) that can also be
@@ -15,8 +21,6 @@ observing the other.
 [Nicolas Leenaerts](https://nicolasleenaerts.github.io/)
 
 ## Installation
-
-You can install *setweaver* with the following code snippet:
 
 You can install *setweaver* from GitHub with the following code snippet:
 
@@ -42,9 +46,6 @@ library(setweaver)
 
 # Pairing variables
 results = pairmi(misimdata[,2:11],alpha = 0.05,n_elements = 5)
-
-# View data with sets added
-View(results$expanded.data)
 ```
 
 | x1 | x2 | x3 | x4 | x5 | x6 | x7 | x8 | x9 | x10 | x1_x2 | x2_x3 | x3_x4 | x3_x5 | x4_x5 | x5_x6 | x6_x7 | x3_x4_x5 |
@@ -56,11 +57,6 @@ View(results$expanded.data)
 | 1 | 0 | 0 | 1 | 0 | 1 | 1 | 1 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 0 |
 
 Table 1. Expanded Data
-
-``` r
-# View information on the sets
-View(results$sets)
-```
 
 | n_elements |   set    |    mi     | relative.mi |     p     |
 |:----------:|:--------:|:---------:|:-----------:|:---------:|
@@ -94,6 +90,6 @@ evaluated_sets = probstat(misimdata$y,results$expanded.data[,results$sets$set],n
 
 Table 3. Evaluated sets
 
-## More informations
+## More information
 
 Consult the vignette for more detailed information!
