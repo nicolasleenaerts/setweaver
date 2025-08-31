@@ -1,10 +1,11 @@
 
-# setweaver
+# setweaver <a href="https://github.com/nicolasleenaerts/setweaveroptions(buildtools.check = function(action) TRUE )"><img src="man/figures/logo.png" align="right" height="120" alt="setweaver website" /></a>
 
 <!-- badges: start -->
 
 [![CRAN
 status](https://www.r-pkg.org/badges/version/setweaver)](https://CRAN.R-project.org/package=setweaver)
+[![R-CMD-check](https://github.com/nicolasleenaerts/setweaver/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/nicolasleenaerts/setweaver/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 *setweaver* is an R package designed to help users create sets of
