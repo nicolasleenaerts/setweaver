@@ -1,20 +1,20 @@
 Type: Package
 Package: setweaver
-Title: Forming Sets of Variables Within a Probabilistic Framework
-Version: 0.1.0
+Title: Building Sets of Variables in a Probabilistic Framework
+Version: 1.0.0
 Authors@R: c(
     person("Nicolas", "Leenaerts", , "nicolas.leenaerts@kuleuven.be", role = c("aut", "cre","cph"),
            comment = c(ORCID = "0000-0003-2421-6845")),
     person("Aaron", "Fisher", , "afisher@berkeley.edu", role = c("aut","cph"),
            comment = c(ORCID = "0000-0001-9754-4618"))
   )
-Description: Provides tools to create sets of variables based on a mutual
+Description: Create sets of variables based on a mutual
     information approach. In this context, a set is a collection of
     distinct elements (e.g., variables) that can also be treated as a
     single entity.  Mutual information, a concept from probability theory,
     quantifies the dependence between two variables by expressing how much
     information about one variable can be gained from observing the other.
-    Furthermore, the package allows the user to analyze, and visualize
+    Furthermore, you can analyze, and visualize
     these sets in order to better understand the relationships among
     variables.
 License: CC BY 4.0

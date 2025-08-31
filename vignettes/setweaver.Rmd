@@ -24,7 +24,13 @@ knitr::opts_chunk$set(
 
 ## Installation
 
-You can install *setweaver* from GitHub with the following code snippet:
+You can install the released version of setweaver from [CRAN](https://CRAN.R-project.org) with:
+
+```r
+install.packages("setweaver")
+```
+
+Or you can install the development version of *setweaver* from GitHub with the following code snippet:
 
 ``` r
 devtools::install_github('nicolasleenaerts/setweaver')
@@ -94,11 +100,11 @@ If you wish to explore the relationships between variables using a probabilistic
 
 ```{r example_5, results='hide',message=FALSE}
 # Compute entropy and mutual information diagnostics for selected variables
-descriptives = entfuns(misimdata$y,misimdata[,2:5])
+descriptives = entfuns(misimdata$y,misimdata[,2:3])
 ```
 
 ```{r table_4,echo=FALSE,results='asis'}
-knitr::kable(entfuns(misimdata$y,misimdata[,2:5]),caption = 'Table 4. Diagnostic statistics from entfuns()',align = c('c'))
+knitr::kable(entfuns(misimdata$y,misimdata[,2:3]),caption = 'Table 4. Diagnostic statistics from entfuns()',align = c('c'))
 ```
 
 Enjoy using the package, and reach out if you have any questions!

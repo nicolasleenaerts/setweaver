@@ -1,5 +1,5 @@
 
-# setweaver <a href="https://github.com/nicolasleenaerts/setweaveroptions(buildtools.check = function(action) TRUE )"><img src="man/figures/logo.png" align="right" height="120" alt="setweaver website" /></a>
+# setweaver <a href="https://github.com/nicolasleenaerts/setweaver"><img src="man/figures/logo.png" align="right" height="120" alt="setweaver website" /></a>
 
 <!-- badges: start -->
 
@@ -23,7 +23,15 @@ observing the other.
 
 ## Installation
 
-You can install *setweaver* from GitHub with the following code snippet:
+You can install the released version of setweaver from
+[CRAN](https://CRAN.R-project.org) with:
+
+``` r
+install.packages("setweaver")
+```
+
+Or you can install the development version of *setweaver* from GitHub
+with the following code snippet:
 
 ``` r
 devtools::install_github('nicolasleenaerts/setweaver')
