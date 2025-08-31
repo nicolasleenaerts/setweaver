@@ -1,0 +1,104 @@
+---
+title: "setweaver"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{setweaver}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/vignette_",
+  out.width = "100%"
+)
+```
+
+*setweaver* is an R package designed to help users create sets of variables based on a mutual information approach and explore how they are related to a specific outcome. In this context, a set is a collection of distinct elements (e.g., variables) that can also be treated as a single entity. Mutual information, a concept from probability theory, quantifies the dependence between two variables by expressing how much information about one variable can be gained from observing the other.
+
+## Authors
+[Aaron Fisher](https://psychology.berkeley.edu/people/aaron-fisher)\
+[Nicolas Leenaerts](https://nicolasleenaerts.github.io/)
+
+## Installation
+
+You can install *setweaver* from GitHub with the following code snippet:
+
+``` r
+devtools::install_github('nicolasleenaerts/setweaver')
+```
+
+You can then attach the package as follows:
+
+```{r setup}
+library(setweaver)
+```
+
+## Pairing variables
+
+You can create sets of variables using the *pairmi* function, which takes a dataframe of variables and pairs them up to a specified maximum number of elements. For each set, the mutual information between the variables is computed, followed by the calculation of a G-statistic. This statistic is then evaluated for significance based on a chi-squared distribution with a predefined alpha level. Alternatively, users can specify a mutual information threshold to determine the significance of the sets.
+
+```{r example_1, results='hide',message=FALSE}
+# Loading the package, which automatically also downloads the example data (misimdata)
+library(setweaver) 
+
+# Pairing variables
+results = pairmi(misimdata[,2:11],alpha = 0.05,n_elements = 5)
+```
+
+```{r table_1,echo=FALSE,results='asis'}
+knitr::kable(results$expanded.data[c(1:5),],caption = 'Table 1. Expanded Data',align = c('c'))
+```
+
+```{r table_2,echo=FALSE,results='asis'}
+knitr::kable(results$sets,caption = 'Table 2. Information on sets',align = c('c'))
+```
+
+## Evaluating sets
+
+Once the sets are created with the *pairmi* function , you can assess their relationship with a specific outcome using the *probstat* function. This function employs k-fold cross-validation to compute parameters such as conditional probability, conditional entropy, and the odds ratio of the outcome given a particular set. Additionally, a Fisher's exact test or a generalized linear mixed model (i.e., for multilevel data) is performed to determine whether the outcome is significantly more likely to occur in the presence of a given set of variables.
+
+```{r example_2, results='hide',message=FALSE}
+# Evaluating the sets
+evaluated_sets = probstat(misimdata$y,results$expanded.data[,results$sets$set],nfolds = 5)
+```
+
+```{r table_3,echo=FALSE,results='asis'}
+knitr::kable(evaluated_sets[c(1:5),],caption = 'Table 3. Evaluated sets',align = c('c'))
+```
+
+## Visualizing sets
+
+You can visualize the sets created with the *pairmi* function using the *setmapmi* function. This function generates a setmap, which illustrates the composition of sets by showing which original variables are included in sets of a given size.
+
+```{r example_3, fig.align = "center", fig.height = 6, fig.width =8, fig.cap="Plot 1. Setmap of sets that consist of 2 elements"}
+# Visualizing the sets
+setmapmi(results$original.variables,results$sets,n_elements = 2)
+```
+
+## Visualizing relations between sets and an outcome
+
+You can also visualise how sets are related to an outcome with the *plot_prob* function. Here, the relationships can displayed either as conditional probabilities or as effects estimated by logistic regression.
+
+```{r example_4, fig.align = "center", fig.height = 6, fig.width = 6, fig.cap="Plot 2. Graph showing the relation between certain sets and an outcome y"}
+# Creating a graph where sets are relate to an outcome using logistic regression effects
+plot_prob(cbind(y=misimdata[,1],results$expanded.data[,13:17]),
+          'y',colnames(results$expanded.data[,13:17]),method='logistic')
+```
+
+## Working Directly with Underlying Functions
+
+If you wish to explore the relationships between variables using a probabilistic or mutual information framework, you can call the lower-level functions from the *pairmi* and *probstat* functions directly. This allows for detailed and customized analyses. For example, the *entfuns* function calculates several descriptive measures that summarize the relationships between predictor variables and an outcome variable.
+
+```{r example_5, results='hide',message=FALSE}
+# Compute entropy and mutual information diagnostics for selected variables
+descriptives = entfuns(misimdata$y,misimdata[,2:5])
+```
+
+```{r table_4,echo=FALSE,results='asis'}
+knitr::kable(entfuns(misimdata$y,misimdata[,2:5]),caption = 'Table 4. Diagnostic statistics from entfuns()',align = c('c'))
+```
+
+Enjoy using the package, and reach out if you have any questions!

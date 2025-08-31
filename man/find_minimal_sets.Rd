@@ -7,15 +7,21 @@
 find_minimal_sets(str_vec, sep = "_")
 }
 \arguments{
-\item{str_vec}{Vector of sets for which you want to find the minimally sufficient sets (vector)}
+\item{str_vec}{Character vector of set strings for which to find minimally
+sufficient sets (e.g., `c("x1_x2", "x1_x2_x3")`).}
 
-\item{sep}{The seperator that was used in the creation of the sets (character)}
+\item{sep}{Character string used as the separator between variables in each
+set. Defaults to `"_"`.}
 }
 \value{
-A vector with the minimally sufficient sets
+A character vector containing the minimally sufficient sets (i.e., sets that
+are not strict supersets of any other set in `str_vec`).
 }
 \description{
-A function that finds the irreducible and nonexchangeable sets that account for all other sufficient sets at a certain conditional probability threshold
+Given a character vector of sets (each set encoded as variable names joined by
+a separator), returns the subset of sets that are minimal: no returned set
+is a strict superset of another. Duplicates and ordering differences are
+handled according to the implementation.
 }
 \examples{
 pairmiresult = pairmi(misimdata[,2:6])

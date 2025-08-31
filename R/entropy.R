@@ -1,8 +1,9 @@
 #' entropy
 #' @description Returns marginal entropy for binary variables
-#' @param x Variable (vector)
+#' @param x A binary vector (numeric coded as 0/1 or logical). Must be length ≥ 1.
 #'
-#' @return A numerical value
+#' @return
+#' A numeric scalar giving the entropy of `x`.
 #' @export
 #'
 #' @examples

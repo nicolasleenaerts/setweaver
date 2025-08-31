@@ -1,9 +1,13 @@
 #' joint
-#' @description Joint probability, P(Y∩X)
-#' @param y Outcome (vector)
-#' @param x Predictor (vector)
+#' @description
+#' Computes the joint probability \eqn{P(X = 1, Y = 1)} for two binary vectors
+#' `x` and `y`. Rows with missing values in either vector are excluded.
+#' @param y A binary outcome vector (0/1 or logical). Must be the same length as `x`.
+#' @param x A binary predictor vector (0/1 or logical). Must be the same length as `y`.
 #'
-#' @return A numerical value
+#' @return
+#' A numeric scalar giving the joint probability that both `x = 1` and `y = 1`,
+#' calculated as the joint count divided by the number of complete cases.
 #' @export
 #'
 #' @examples

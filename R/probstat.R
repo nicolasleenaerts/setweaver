@@ -1,25 +1,40 @@
 #' probstat
 #'
-#' @param y Outcome (vector)
-#' @param x Predictor (a data.frame object, typically the expanded dataset from
-#'   the pairmi function)
-#' @param test String indicating whether a Fisher's exact test or a Generalized
-#'   linear mixed model needs to be performed (Integer)
-#' @param ri Data of the variable that should be used as a random intercept in
-#'   the Generalized linear mixed model (vector)
-#' @param nfolds Number of folds for the cross-validation (Integer)
-#' @param seed Number used for the randomization across folds (Integer)
+#' @description Computes marginal, conditional, and information-theoretic
+#' summaries for a binary outcome `y` against one or more predictors in `x`.
+#' Performs either Fisher's exact test or a generalized linear mixed model
+#' (GLMM) for inference.
 #'
-#' @return A data.frame object giving the following parameters for each pair:
-#'   xprob = probability of X yprob = probability of Y cprob = conditional
-#'   probability of Y given X cprobx = = conditional probability of X given Y
-#'   cprobi = inverse conditional probability of Y given X cpdif = difference
-#'   between marginal and conditional probability of Y cpdifper = percentagewise
-#'   difference between marginal and conditional probability of Y xent = entropy
-#'   of X yent = entropy of Y ce = conditional entropy cedif = difference
-#'   between marginal and conditional entropy of Y cedifper = percentagewise
-#'   difference between marginal and conditional entropy of Y p = p-value
-#'   returned by the Fisher's exact test or Generalized linear mized model
+#' @param y A binary outcome vector (logical or numeric coded as 0/1). Length
+#'   `n`.
+#' @param x A data frame of predictors (typically the expanded data returned by
+#'   [pairmi()]). Must have `n` rows; columns are treated as candidate
+#'   predictors.
+#' @param test Character string selecting the inferential method; one of
+#'   `c("fisher", "glmm")`. Defaults to `"fisher"` if missing.
+#' @param ri Optional vector/factor giving the grouping variable for a random
+#'   intercept in the GLMM. Must be length `n`. Ignored if `test = "fisher"`.
+#' @param nfolds Integer; number of folds used for cross-validation.
+#' @param seed Integer seed for fold randomization.
+#'
+#' @return A data frame with one row per evaluated predictor (or pair) and the
+#'   following columns:
+#' \describe{
+#'   \item{xprob}{Marginal probability of \eqn{X=1}.}
+#'   \item{yprob}{Marginal probability of \eqn{Y=1}.}
+#'   \item{cprob}{Conditional probability \eqn{P(Y=1 \mid X=1)}.}
+#'   \item{cprobx}{Conditional probability \eqn{P(X=1 \mid Y=1)}.}
+#'   \item{cprobi}{Inverse conditional probability \eqn{P(Y=1 \mid X=0)}.}
+#'   \item{cpdif}{Difference \eqn{P(Y=1 \mid X=1) - P(Y=1)}.}
+#'   \item{cpdifper}{Percent difference relative to \eqn{P(Y=1)}.}
+#'   \item{xent}{Entropy of \eqn{X}.}
+#'   \item{yent}{Entropy of \eqn{Y}.}
+#'   \item{ce}{Conditional entropy of \eqn{Y \mid X}.}
+#'   \item{cedif}{Difference between marginal and conditional entropy of \eqn{Y}.}
+#'   \item{cedifper}{Percent difference in entropy.}
+#'   \item{p}{p-value from Fisher's exact test or the GLMM (as applicable).}
+#' }
+#'
 #' @export
 #' @examples
 #' pairmiresult = pairmi(misimdata[,2:6])

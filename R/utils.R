@@ -2,7 +2,7 @@
 # Internal utility functions for the setweaver package
 #'
 #' @keywords internal
-#' @export
+#' @noRd
 
 # Check if a variable is binary
 check_binary <- function(data,col_name) {
@@ -29,14 +29,4 @@ get_display_name <- function(var_labels, name) {
     # Default to original name if var_labels is NULL or name not found
     return(name)
   }
-}
-
-# Function to convert strings to sets
-string_to_set <- function(string) {
-  # Remove underscores
-  string <- gsub("_", "", string)
-  
-  # Replace 's' with space followed by the character
-  modified_string <- gsub("([s])", " \\1", string)
-  unlist(strsplit(modified_string, " "))
 }

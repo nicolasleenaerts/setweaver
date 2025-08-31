@@ -24,45 +24,56 @@ plot_prob(
 )
 }
 \arguments{
-\item{data}{Dataset containing the yvar and the xvar (a data.frame object)}
+\item{data}{A data frame containing the outcome (`y_var`) and predictors
+(`x_vars`).}
 
-\item{y_var}{Outcome (character)}
+\item{y_var}{Character string giving the name of the outcome variable in
+`data`.}
 
-\item{x_vars}{A vector of strings indicating the predictors for the outcome (vector)}
+\item{x_vars}{Character vector of predictor variable names in `data`.}
 
-\item{var_labels}{Labels for the xvars in the graph (vector)}
+\item{var_labels}{Optional character vector of display labels for the
+predictors. Must match the length of `x_vars`.}
 
-\item{prob_digits}{Number of decimals to round the conditional probability with, defaults to 2 (Integer)}
+\item{prob_digits}{Integer; number of decimal places to round conditional
+probabilities. Defaults to `2`.}
 
-\item{method}{String that indicates whether conditional probabilities or logistic regression effects should be calculated (character)}
+\item{method}{Character string indicating how to quantify associations:
+`"prob"` for conditional probabilities or `"logistic"` for logistic
+regression effects.}
 
-\item{title}{Title of the plot (character)}
+\item{title}{Character string; title of the plot.}
 
-\item{vertex_color}{String setting the color of the vertices (character)}
+\item{vertex_color}{Character string giving the fill color of nodes.}
 
-\item{vertex_frame_color}{String setting the color of the frames of the vertices (character)}
+\item{vertex_frame_color}{Character string giving the color of node borders.}
 
-\item{vertex_label_color}{String setting the color of the labels of the vertices (character)}
+\item{vertex_label_color}{Character string giving the color of node labels.}
 
-\item{edge_color}{String setting the color of the edges (character)}
+\item{edge_color}{Character string giving the color of edges.}
 
-\item{edge_label_color}{String setting the color of labels the edges (character)}
+\item{edge_label_color}{Character string giving the color of edge labels.}
 
-\item{min_arrow_width}{Number used to define the minimum width of the arrows in the graph (Integer)}
+\item{min_arrow_width}{Numeric value for the minimum edge width.}
 
-\item{max_arrow_width}{Number used to define the maximum width of the arrows in the graph (Integer)}
+\item{max_arrow_width}{Numeric value for the maximum edge width.}
 
-\item{node_size}{Number used to define the size of the nodes  in the graph (Integer)}
+\item{node_size}{Numeric value controlling the size of nodes.}
 
-\item{label_cex}{Number used to define the size of the node labels in the grap (Integer)}
+\item{label_cex}{Numeric value controlling the size of node labels.}
 }
 \value{
-A graph where the xvars and yvar are the nodes and the edges represent the relation between the xvars and the yvar.
-On each node, the name of the variable and the marginal probability of the variable is displayed
-On each edge, the conditional probability or logistic regression effect between a certain xvar and the yvar is displayed
+A graph object (typically an [`igraph::igraph`] object or similar) is
+returned and plotted. Nodes represent variables and edges represent
+associations. Node labels include variable names and marginal probabilities.
+Edge labels display either conditional probabilities or logistic regression
+effects.
 }
 \description{
-Create a graph showing how sets of variables are related to an outcome via conditional probability or logistic regression effect.
+Creates a network-style graph showing how a set of predictors
+(`x_vars`) are related to an outcome (`y_var`). Relationships can be
+displayed either as conditional probabilities or as effects estimated by
+logistic regression.
 }
 \examples{
 plot_prob(misimdata,'y',colnames(misimdata[,3:6]),method='logistic')

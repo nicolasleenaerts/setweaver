@@ -1,9 +1,14 @@
 #' mi
-#' @description Mutual Information, where: H(X)+H(Y)−H(X,Y), P's = probability, H's = entropy, J's = joint probabilities
-#' @param y Outcome (vector)
-#' @param x Predictor (vector)
+#' @description Computes the mutual information (MI) between an outcome `y` and
+#' a predictor `x`, using the standard definition: \deqn{MI(X, Y) = H(X) + H(Y)
+#' - H(X, Y),}
 #'
-#' @return A numerical value
+#' @param y Outcome vector (binary: 0/1 or logical).
+#' @param x Predictor vector (binary: 0/1 or logical). Must be the same length
+#'   as `y`.
+#'
+#' @return A numeric scalar giving the mutual information between `x` and `y`
+#'
 #' @export
 #'
 #' @examples

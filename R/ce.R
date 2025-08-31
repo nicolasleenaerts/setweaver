@@ -1,9 +1,14 @@
 #' ce
-#' @description Conditional Entropy, where: H(Y|X) = H(X∩Y)-H(X), P's = probability, H's = entropy, J's = joint probabilities
-#' @param y Outcome (vector)
-#' @param x Predictor (vector)
+#' @description
+#' Computes the conditional entropy \eqn{H(Y \mid X)} for two binary
+#' vectors `y` (outcome) and `x` (predictor).
 #'
-#' @return A numerical value
+#' @param y A binary outcome vector (0/1 or logical). Must be the same length as `x`.
+#' @param x A binary predictor vector (0/1 or logical). Must be the same length as `y`.
+#'
+#' @return
+#' A numeric scalar giving \eqn{H(Y \mid X)}.
+#'
 #' @export
 #'
 #' @examples

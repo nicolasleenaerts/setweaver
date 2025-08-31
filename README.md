@@ -18,20 +18,23 @@ observing the other.
 
 You can install *setweaver* with the following code snippet:
 
+You can install *setweaver* from GitHub with the following code snippet:
+
 ``` r
 devtools::install_github('nicolasleenaerts/setweaver')
 ```
 
-## Pairing variables
+You can then attach the package as follows:
 
-You can create sets of variables using the *pairmi* function, which
-takes a dataframe of variables and pairs them up to a specified maximum
-number of elements. For each set, the mutual information between the
-variables is computed, followed by the calculation of a G-statistic.
-This statistic is then evaluated for significance based on a chi-squared
-distribution with a predefined alpha level. Alternatively, users can
-specify a mutual information threshold to determine the significance of
-the sets.
+``` r
+library(setweaver)
+```
+
+## Simple example
+
+Create sets of variables using the *pairmi* function, which takes a
+dataframe of variables and pairs them up to a specified maximum number
+of elements.
 
 ``` r
 # Loading the package, which automatically also downloads the example data (misimdata)
@@ -44,13 +47,13 @@ results = pairmi(misimdata[,2:11],alpha = 0.05,n_elements = 5)
 View(results$expanded.data)
 ```
 
-| x1  | x2  | x3  | x4  | x5  | x6  | x7  | x8  | x9  | x10 | x1_x2 | x2_x3 | x3_x4 | x3_x5 | x4_x5 | x5_x6 | x6_x7 | x3_x4_x5 |
-|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:--------:|
-|  1  |  0  |  0  |  0  |  1  |  0  |  1  |  0  |  1  |  0  |   0   |   0   |   0   |   0   |   0   |   0   |   0   |    0     |
-|  1  |  1  |  1  |  0  |  1  |  0  |  1  |  0  |  1  |  1  |   1   |   1   |   0   |   1   |   0   |   0   |   0   |    0     |
-|  1  |  1  |  0  |  0  |  1  |  0  |  1  |  1  |  1  |  1  |   1   |   0   |   0   |   0   |   0   |   0   |   0   |    0     |
-|  1  |  0  |  1  |  0  |  1  |  0  |  1  |  1  |  1  |  0  |   0   |   0   |   0   |   1   |   0   |   0   |   0   |    0     |
-|  1  |  0  |  0  |  1  |  0  |  1  |  1  |  1  |  1  |  0  |   0   |   0   |   0   |   0   |   0   |   0   |   1   |    0     |
+| x1 | x2 | x3 | x4 | x5 | x6 | x7 | x8 | x9 | x10 | x1_x2 | x2_x3 | x3_x4 | x3_x5 | x4_x5 | x5_x6 | x6_x7 | x3_x4_x5 |
+|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
+| 1 | 0 | 0 | 0 | 1 | 0 | 1 | 0 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+| 1 | 1 | 1 | 0 | 1 | 0 | 1 | 0 | 1 | 1 | 1 | 1 | 0 | 1 | 0 | 0 | 0 | 0 |
+| 1 | 1 | 0 | 0 | 1 | 0 | 1 | 1 | 1 | 1 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+| 1 | 0 | 1 | 0 | 1 | 0 | 1 | 1 | 1 | 0 | 0 | 0 | 0 | 1 | 0 | 0 | 0 | 0 |
+| 1 | 0 | 0 | 1 | 0 | 1 | 1 | 1 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 0 |
 
 Table 1. Expanded Data
 
@@ -72,47 +75,25 @@ View(results$sets)
 
 Table 2. Information on sets
 
-## Evaluating sets
-
 Once the sets are created with the *pairmi* function , you can assess
 their relationship with a specific outcome using the *probstat*
-function. This function employs k-fold cross-validation to compute
-parameters such as conditional probability, conditional entropy, and the
-odds ratio of the outcome given a particular set. Additionally, Fisher’s
-exact test is performed to determine whether the outcome is
-significantly more likely to occur in the presence of a given set of
-variables.
+function.
 
 ``` r
 # Evaluating the sets
 evaluated_sets = probstat(misimdata$y,results$expanded.data[,results$sets$set],nfolds = 5)
 ```
 
-|     | xvars |   yprob   | xprob | cprob | cprobx | cprobi | cpdif  | cpdifper | xent  | yent  |  ce   | cedif | cedifper |  OR   | ORmarg |  p  |  rmse   |
-|:----|:-----:|:---------:|:-----:|:-----:|:------:|:------:|:------:|:--------:|:-----:|:-----:|:-----:|:-----:|:--------:|:-----:|:------:|:---:|:-------:|
-| 1   | x1_x2 | 0.3003999 | 0.205 | 0.166 | 0.113  | 0.335  | -0.134 |  -0.447  | 0.731 | 0.882 | 0.864 | 0.018 |  0.020   | 0.394 | 0.464  |  0  | 0.00706 |
-| 6   | x4_x5 | 0.3003999 | 0.186 | 0.193 | 0.120  | 0.325  | -0.107 |  -0.358  | 0.694 | 0.882 | 0.872 | 0.010 |  0.011   | 0.496 | 0.556  |  0  | 0.00706 |
-| 2   | x2_x3 | 0.3003999 | 0.196 | 0.200 | 0.130  | 0.325  | -0.101 |  -0.336  | 0.715 | 0.882 | 0.873 | 0.009 |  0.010   | 0.520 | 0.582  |  0  | 0.00706 |
-| 3   | x3_x4 | 0.3003999 | 0.176 | 0.203 | 0.119  | 0.321  | -0.098 |  -0.325  | 0.670 | 0.882 | 0.874 | 0.007 |  0.008   | 0.538 | 0.592  |  0  | 0.00706 |
-| 5   | x3_x5 | 0.3003999 | 0.273 | 0.227 | 0.206  | 0.328  | -0.074 |  -0.245  | 0.846 | 0.882 | 0.874 | 0.007 |  0.008   | 0.602 | 0.684  |  0  | 0.00706 |
+|  | xvars | yprob | xprob | cprob | cprobx | cprobi | cpdif | cpdifper | xent | yent | ce | cedif | cedifper | OR | ORmarg | p | rmse |
+|:---|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
+| 1 | x1_x2 | 0.3003999 | 0.205 | 0.166 | 0.113 | 0.335 | -0.134 | -0.447 | 0.731 | 0.882 | 0.864 | 0.018 | 0.020 | 0.394 | 0.464 | 0 | 0.00706 |
+| 6 | x4_x5 | 0.3003999 | 0.186 | 0.193 | 0.120 | 0.325 | -0.107 | -0.358 | 0.694 | 0.882 | 0.872 | 0.010 | 0.011 | 0.496 | 0.556 | 0 | 0.00706 |
+| 2 | x2_x3 | 0.3003999 | 0.196 | 0.200 | 0.130 | 0.325 | -0.101 | -0.336 | 0.715 | 0.882 | 0.873 | 0.009 | 0.010 | 0.520 | 0.582 | 0 | 0.00706 |
+| 3 | x3_x4 | 0.3003999 | 0.176 | 0.203 | 0.119 | 0.321 | -0.098 | -0.325 | 0.670 | 0.882 | 0.874 | 0.007 | 0.008 | 0.538 | 0.592 | 0 | 0.00706 |
+| 5 | x3_x5 | 0.3003999 | 0.273 | 0.227 | 0.206 | 0.328 | -0.074 | -0.245 | 0.846 | 0.882 | 0.874 | 0.007 | 0.008 | 0.602 | 0.684 | 0 | 0.00706 |
 
 Table 3. Evaluated sets
 
-## Visualizing sets
+## More informations
 
-You can visualize the sets created with the *pairmi* function using the
-*setmapmi* function. This function generates a setmap, which illustrates
-the composition of sets by showing which original variables are included
-in sets of a given size.
-
-``` r
-# Visualizing the sets
-setmapmi(results$original.variables,results$sets,n_elements = 2)
-```
-
-<figure>
-<img src="man/figures/README-example4-1.png"
-alt="Plot 1. Setmap of sets that consist of 2 elements" />
-<figcaption aria-hidden="true">Plot 1. Setmap of sets that consist of 2
-elements</figcaption>
-</figure>
+Consult the vignette for more detailed information!

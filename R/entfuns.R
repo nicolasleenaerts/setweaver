@@ -1,9 +1,33 @@
 #' entfuns
-#' @description A diagnostic and descriptive tool that calculates probability, conditional probability, absolute difference between marginal and conditional probability, absolute difference between marginal and conditional entropy, proportional difference between marginal and conditional probability, and proportional difference between marginal and conditional entropy
-#' @param y Outcome (vector)
-#' @param x Predictor (data.frame object)
+#' @description Computes a set of descriptive diagnostics for a binary outcome
+#'   `y` against one or more predictors in `x`, including marginal probability,
+#'   conditional probability, absolute and proportional differences between
+#'   marginal and conditional probabilities, and analogous measures based on
+#'.  entropy.
 #'
-#' @return A data.frame object
+#' @details Inputs are treated as binary (0/1 or logical). Missing values are
+#' removed pairwise for each predictor (rows with `NA` in either the outcome or
+#' the predictor are excluded for that predictor's calculations).
+#'
+#' @param y A binary outcome vector (0/1 or logical). Length `n`.
+#' @param x A data frame of binary predictors (columns). Must have `n` rows;
+#'   each column is analyzed separately against `y`.
+#'
+#' @return A data frame with one row per predictor and the following columns:
+#' \describe{
+#'   \item{xvar}{Predictor name.}
+#'   \item{yprob}{Marginal probability \eqn{P(Y=1)} computed on complete cases
+#'     for that predictor.}
+#'   \item{xprob}{Marginal probability \eqn{P(X=1)}.}
+#'   \item{cprob}{Conditional probability \eqn{P(Y=1 \mid X=1)}.}
+#'   \item{cpdif}{Absolute difference \eqn{P(Y=1 \mid X=1) - P(Y=1)}.}
+#'   \item{cpdifper}{Percent difference relative to \eqn{P(Y=1)}.}
+#'   \item{yent}{Entropy \eqn{H(Y)}.}
+#'   \item{ce}{Conditional entropy \eqn{H(Y \mid X)}.}
+#'   \item{cedif}{Absolute difference \eqn{H(Y) - H(Y \mid X)}.}
+#'   \item{cedifper}{Percent difference in entropy relative to \eqn{H(Y)}.}
+#' }
+#'
 #' @export
 #'
 #' @examples

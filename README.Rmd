@@ -6,12 +6,16 @@ output: github_document
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  fig.path = "man/figures/README-",
+  fig.path = "man/figures/README_",
   out.width = "100%"
 )
 ```
 
 # setweaver
+
+<!-- badges: start -->
+[![CRAN status](https://www.r-pkg.org/badges/version/setweaver)](https://CRAN.R-project.org/package=setweaver)
+<!-- badges: end -->
 
 *setweaver* is an R package designed to help users create sets of variables based on a mutual information approach. In this context, a set is a collection of distinct elements (e.g., variables) that can also be treated as a single entity. Mutual information, a concept from probability theory, quantifies the dependence between two variables by expressing how much information about one variable can be gained from observing the other.
 
@@ -23,59 +27,50 @@ knitr::opts_chunk$set(
 
 You can install *setweaver* with the following code snippet:
 
+You can install *setweaver* from GitHub with the following code snippet:
+
 ``` r
 devtools::install_github('nicolasleenaerts/setweaver')
 ```
 
-## Pairing variables
+You can then attach the package as follows:
 
-You can create sets of variables using the *pairmi* function, which takes a dataframe of variables and pairs them up to a specified maximum number of elements. For each set, the mutual information between the variables is computed, followed by the calculation of a G-statistic. This statistic is then evaluated for significance based on a chi-squared distribution with a predefined alpha level. Alternatively, users can specify a mutual information threshold to determine the significance of the sets.
+```{r setup}
+library(setweaver)
+```
 
-```{r example 1, results='hide',message=FALSE}
+## Simple example 
+
+Create sets of variables using the *pairmi* function, which takes a dataframe of variables and pairs them up to a specified maximum number of elements. 
+
+```{r example_1, results='hide',message=FALSE}
 # Loading the package, which automatically also downloads the example data (misimdata)
 library(setweaver) 
 
 # Pairing variables
 results = pairmi(misimdata[,2:11],alpha = 0.05,n_elements = 5)
-
-# View data with sets added
-View(results$expanded.data)
 ```
 
-```{r table 1,echo=FALSE,results='asis'}
+```{r table_1,echo=FALSE,results='asis'}
 knitr::kable(results$expanded.data[c(1:5),],caption = 'Table 1. Expanded Data',align = c('c'))
 ```
 
-```{r example 2,results='hide',message=FALSE}
-# View information on the sets
-View(results$sets)
-```
-
-```{r table 2,echo=FALSE,results='asis'}
+```{r table_2,echo=FALSE,results='asis'}
 knitr::kable(results$sets,caption = 'Table 2. Information on sets',align = c('c'))
 ```
 
-## Evaluating sets
 
-Once the sets are created with the *pairmi* function , you can assess their relationship with a specific outcome using the *probstat* function. This function employs k-fold cross-validation to compute parameters such as conditional probability, conditional entropy, and the odds ratio of the outcome given a particular set. Additionally, Fisher's exact test is performed to determine whether the outcome is significantly more likely to occur in the presence of a given set of variables.
+Once the sets are created with the *pairmi* function , you can assess their relationship with a specific outcome using the *probstat* function. 
 
-```{r example 3, results='hide',message=FALSE}
+```{r example_3, results='hide',message=FALSE}
 # Evaluating the sets
 evaluated_sets = probstat(misimdata$y,results$expanded.data[,results$sets$set],nfolds = 5)
 ```
 
-```{r table 3,echo=FALSE,results='asis'}
+```{r table_3,echo=FALSE,results='asis'}
 knitr::kable(evaluated_sets[c(1:5),],caption = 'Table 3. Evaluated sets',align = c('c'))
 ```
 
-## Visualizing sets
+## More informations
 
-You can visualize the sets created with the *pairmi* function using the *setmapmi* function. This function generates a setmap, which illustrates the composition of sets by showing which original variables are included in sets of a given size.
-
-
-```{r example4,dev='png', fig.show='hide',message=FALSE}
-# Visualizing the sets
-setmapmi(results$original.variables,results$sets,n_elements = 2)
-```
-
-![Plot 1. Setmap of sets that consist of 2 elements](`r knitr::fig_chunk('example4', 'png')`)
+Consult the vignette for more detailed information!

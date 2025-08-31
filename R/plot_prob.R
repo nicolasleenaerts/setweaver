@@ -1,27 +1,39 @@
 #' plot_prob
-#' @description Create a graph showing how sets of variables are related to an outcome via conditional probability or logistic regression effect.
 #'
-#' @param data Dataset containing the yvar and the xvar (a data.frame object)
-#' @param y_var Outcome (character)
-#' @param x_vars A vector of strings indicating the predictors for the outcome (vector)
-#' @param var_labels Labels for the xvars in the graph (vector)
-#' @param prob_digits Number of decimals to round the conditional probability with, defaults to 2 (Integer)
-#' @param method String that indicates whether conditional probabilities or logistic regression effects should be calculated (character)
-#' @param title Title of the plot (character)
-#' @param min_arrow_width Number used to define the minimum width of the arrows in the graph (Integer)
-#' @param max_arrow_width Number used to define the maximum width of the arrows in the graph (Integer)
-#' @param node_size Number used to define the size of the nodes  in the graph (Integer)
-#' @param label_cex Number used to define the size of the node labels in the grap (Integer)
-#' @param vertex_color String setting the color of the vertices (character)
-#' @param vertex_frame_color String setting the color of the frames of the vertices (character)
-#' @param vertex_label_color String setting the color of the labels of the vertices (character)
-#' @param edge_color String setting the color of the edges (character)
-#' @param edge_label_color String setting the color of labels the edges (character)
+#' @description Creates a network-style graph showing how a set of predictors
+#' (`x_vars`) are related to an outcome (`y_var`). Relationships can be
+#' displayed either as conditional probabilities or as effects estimated by
+#' logistic regression.
 #'
-#' @return A graph where the xvars and yvar are the nodes and the edges represent the relation between the xvars and the yvar.
-#' On each node, the name of the variable and the marginal probability of the variable is displayed
-#' On each edge, the conditional probability or logistic regression effect between a certain xvar and the yvar is displayed
-#' 
+#' @param data A data frame containing the outcome (`y_var`) and predictors
+#'   (`x_vars`).
+#' @param y_var Character string giving the name of the outcome variable in
+#'   `data`.
+#' @param x_vars Character vector of predictor variable names in `data`.
+#' @param var_labels Optional character vector of display labels for the
+#'   predictors. Must match the length of `x_vars`.
+#' @param prob_digits Integer; number of decimal places to round conditional
+#'   probabilities. Defaults to `2`.
+#' @param method Character string indicating how to quantify associations:
+#'   `"prob"` for conditional probabilities or `"logistic"` for logistic
+#'   regression effects.
+#' @param title Character string; title of the plot.
+#' @param min_arrow_width Numeric value for the minimum edge width.
+#' @param max_arrow_width Numeric value for the maximum edge width.
+#' @param node_size Numeric value controlling the size of nodes.
+#' @param label_cex Numeric value controlling the size of node labels.
+#' @param vertex_color Character string giving the fill color of nodes.
+#' @param vertex_frame_color Character string giving the color of node borders.
+#' @param vertex_label_color Character string giving the color of node labels.
+#' @param edge_color Character string giving the color of edges.
+#' @param edge_label_color Character string giving the color of edge labels.
+#'
+#' @return A graph object (typically an [`igraph::igraph`] object or similar) is
+#' returned and plotted. Nodes represent variables and edges represent
+#' associations. Node labels include variable names and marginal probabilities.
+#' Edge labels display either conditional probabilities or logistic regression
+#' effects.
+#'
 #' @export
 #' @examples
 #' plot_prob(misimdata,'y',colnames(misimdata[,3:6]),method='logistic')

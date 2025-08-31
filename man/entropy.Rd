@@ -7,10 +7,10 @@
 entropy(x)
 }
 \arguments{
-\item{x}{Variable (vector)}
+\item{x}{A binary vector (numeric coded as 0/1 or logical). Must be length ≥ 1.}
 }
 \value{
-A numerical value
+A numeric scalar giving the entropy of `x`.
 }
 \description{
 Returns marginal entropy for binary variables

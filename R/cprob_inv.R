@@ -1,9 +1,16 @@
 #' cprob_inv
-#' @description Conditional Probability of the inverse, where: P(Y|X) = P(Y∩X)/P(X=0)
-#' @param y Outcome (vector)
-#' @param x Predictor (vector)
+#' @description Computes the conditional probability \eqn{P(Y = 1 \mid X = 0)}
+#' for two binary vectors `y` and `x`. Rows with missing values in either vector
+#' are excluded.
 #'
-#' @return A numerical value
+#' @param y A binary outcome vector (0/1 or logical). Must be the same length as
+#'   `x`.
+#' @param x A binary predictor vector (0/1 or logical). Must be the same length
+#'   as `y`.
+#'
+#' @return A numeric scalar giving the conditional probability that `y = 1`
+#' given `x = 0`.
+#'
 #' @export
 #'
 #' @examples

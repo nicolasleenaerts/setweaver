@@ -7,15 +7,18 @@
 mi(y, x)
 }
 \arguments{
-\item{y}{Outcome (vector)}
+\item{y}{Outcome vector (binary: 0/1 or logical).}
 
-\item{x}{Predictor (vector)}
+\item{x}{Predictor vector (binary: 0/1 or logical). Must be the same length
+as `y`.}
 }
 \value{
-A numerical value
+A numeric scalar giving the mutual information between `x` and `y`
 }
 \description{
-Mutual Information, where: H(X)+H(Y)−H(X,Y), P's = probability, H's = entropy, J's = joint probabilities
+Computes the mutual information (MI) between an outcome `y` and
+a predictor `x`, using the standard definition: \deqn{MI(X, Y) = H(X) + H(Y)
+- H(X, Y),}
 }
 \examples{
 mi(misimdata$y,misimdata$x1)

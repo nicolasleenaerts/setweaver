@@ -3,20 +3,25 @@
 #'   variables, calculates the G statistic, determines the significance of the
 #'   sets, and only keeps those that are significant.
 #'
-#' @param data A data.frame object with the variables that you want to pair up
-#' @param alpha A numerical value indicating the p-value that is used to
-#'   determine the significance of a set
-#' @param MI.threshold A numerical value indicating the MI value that is used to
-#'   determine the significance of a set Overrides the p-value
-#' @param n_elements An integer indicating the maximum number of variables a set
-#'   can have
-#' @param sep A string which will be used to separate the variables in the pair
-#'   name
+#' @param data A data frame containing the variables to be paired/combined.
+#'   Columns should be binary.
+#' @param alpha Numeric p-value threshold for significance (default used by the
+#'   implementation if not supplied).
+#' @param MI.threshold Numeric mutual information threshold. If provided, it
+#'   overrides `alpha`-based filtering.
+#' @param n_elements Integer giving the maximum size of sets to evaluate (e.g.,
+#'   `2` for pairs, `3` for triplets). Must be ≥ 2.
+#' @param sep String used to join variable names when forming set identifiers
+#'   (e.g., `"_"`).
 #'
-#' @return A list that includes (1) A data.frame object with the original data
-#'   and the data of the significant sets (2) A vector with the original
-#'   variable names (3) A data.frame object with information on the significant
-#'   sets
+#' @return A list with the following components:
+#' \describe{
+#'   \item{expanded.data}{A data frame containing the original variables and the
+#'     columns for significant sets (e.g., pair/triplet indicators).}
+#'   \item{original.variables}{Character vector of the original variable names.}
+#'   \item{sets}{A data frame describing significant sets, including their
+#'     members, size, MI, G statistic, p-value, and constructed name.}
+#' }
 #' @export
 #'
 #' @examples

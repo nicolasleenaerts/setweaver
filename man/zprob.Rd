@@ -7,13 +7,15 @@
 zprob(x)
 }
 \arguments{
-\item{x}{Variable (vector)}
+\item{x}{A numeric or logical vector representing binary outcomes
+(e.g., 0/1 or TRUE/FALSE), from which the proportion is calculated.}
 }
 \value{
-A numerical value
+A numeric value giving the z-score for the observed proportion.
 }
 \description{
-z score for proportion (probability) differing from zero. To insure that distress is occurring a nonzero proportion of time
+Computes the z-score for testing whether the proportion (probability) of
+  successes in `x` differs from zero.
 }
 \examples{
 zprob(misimdata$x1)

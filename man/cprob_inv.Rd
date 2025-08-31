@@ -7,15 +7,20 @@
 cprob_inv(y, x)
 }
 \arguments{
-\item{y}{Outcome (vector)}
+\item{y}{A binary outcome vector (0/1 or logical). Must be the same length as
+`x`.}
 
-\item{x}{Predictor (vector)}
+\item{x}{A binary predictor vector (0/1 or logical). Must be the same length
+as `y`.}
 }
 \value{
-A numerical value
+A numeric scalar giving the conditional probability that `y = 1`
+given `x = 0`.
 }
 \description{
-Conditional Probability of the inverse, where: P(Y|X) = P(Y∩X)/P(X=0)
+Computes the conditional probability \eqn{P(Y = 1 \mid X = 0)}
+for two binary vectors `y` and `x`. Rows with missing values in either vector
+are excluded.
 }
 \examples{
 cprob_inv(misimdata$y,misimdata$x1)

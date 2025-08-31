@@ -7,15 +7,16 @@
 ce(y, x)
 }
 \arguments{
-\item{y}{Outcome (vector)}
+\item{y}{A binary outcome vector (0/1 or logical). Must be the same length as `x`.}
 
-\item{x}{Predictor (vector)}
+\item{x}{A binary predictor vector (0/1 or logical). Must be the same length as `y`.}
 }
 \value{
-A numerical value
+A numeric scalar giving \eqn{H(Y \mid X)}.
 }
 \description{
-Conditional Entropy, where: H(Y|X) = H(X∩Y)-H(X), P's = probability, H's = entropy, J's = joint probabilities
+Computes the conditional entropy \eqn{H(Y \mid X)} for two binary
+vectors `y` (outcome) and `x` (predictor).
 }
 \examples{
 ce(misimdata$y,misimdata$x1)

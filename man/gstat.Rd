@@ -7,15 +7,19 @@
 gstat(mi, count)
 }
 \arguments{
-\item{mi}{Mutual information (numerical value)}
+\item{mi}{Numeric scalar; the mutual information between two variables.}
 
-\item{count}{Joint count (integer value)}
+\item{count}{Integer scalar; the joint count (sample size) used in computing
+\code{mi}.}
 }
 \value{
-A numerical value
+A numeric scalar giving the G statistic value.
 }
 \description{
-G-statistic
+Computes the likelihood-ratio test statistic (G statistic) from the mutual
+information and the joint count of two variables:
+\deqn{G = 2 \times n \times MI,}
+where \eqn{n} is the joint sample size and \eqn{MI} is the mutual information.
 }
 \examples{
 gstat(mi(misimdata$y,misimdata$x1),jtct(misimdata$y,misimdata$x1))

@@ -7,15 +7,17 @@
 joint(y, x)
 }
 \arguments{
-\item{y}{Outcome (vector)}
+\item{y}{A binary outcome vector (0/1 or logical). Must be the same length as `x`.}
 
-\item{x}{Predictor (vector)}
+\item{x}{A binary predictor vector (0/1 or logical). Must be the same length as `y`.}
 }
 \value{
-A numerical value
+A numeric scalar giving the joint probability that both `x = 1` and `y = 1`,
+calculated as the joint count divided by the number of complete cases.
 }
 \description{
-Joint probability, P(Y∩X)
+Computes the joint probability \eqn{P(X = 1, Y = 1)} for two binary vectors
+`x` and `y`. Rows with missing values in either vector are excluded.
 }
 \examples{
 joint(misimdata$y,misimdata$x1)

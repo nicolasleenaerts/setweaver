@@ -7,25 +7,30 @@
 pairmi(data, alpha = 0.05, MI.threshold = NULL, n_elements = 5, sep = "_")
 }
 \arguments{
-\item{data}{A data.frame object with the variables that you want to pair up}
+\item{data}{A data frame containing the variables to be paired/combined.
+Columns should be binary.}
 
-\item{alpha}{A numerical value indicating the p-value that is used to
-determine the significance of a set}
+\item{alpha}{Numeric p-value threshold for significance (default used by the
+implementation if not supplied).}
 
-\item{MI.threshold}{A numerical value indicating the MI value that is used to
-determine the significance of a set Overrides the p-value}
+\item{MI.threshold}{Numeric mutual information threshold. If provided, it
+overrides `alpha`-based filtering.}
 
-\item{n_elements}{An integer indicating the maximum number of variables a set
-can have}
+\item{n_elements}{Integer giving the maximum size of sets to evaluate (e.g.,
+`2` for pairs, `3` for triplets). Must be ≥ 2.}
 
-\item{sep}{A string which will be used to separate the variables in the pair
-name}
+\item{sep}{String used to join variable names when forming set identifiers
+(e.g., `"_"`).}
 }
 \value{
-A list that includes (1) A data.frame object with the original data
-  and the data of the significant sets (2) A vector with the original
-  variable names (3) A data.frame object with information on the significant
-  sets
+A list with the following components:
+\describe{
+  \item{expanded.data}{A data frame containing the original variables and the
+    columns for significant sets (e.g., pair/triplet indicators).}
+  \item{original.variables}{Character vector of the original variable names.}
+  \item{sets}{A data frame describing significant sets, including their
+    members, size, MI, G statistic, p-value, and constructed name.}
+}
 }
 \description{
 A function that calculates the mutual information for sets of

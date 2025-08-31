@@ -4,20 +4,28 @@
 \alias{setmapmi}
 \title{setmapmi}
 \usage{
-setmapmi(original.variables = NULL, sets = NULL, n_elements = NULL)
+setmapmi(original_variables = NULL, sets = NULL, n_elements = NULL)
 }
 \arguments{
-\item{original.variables}{The names of the original variables that were paired up (Vector of strings)}
+\item{original_variables}{Character vector of names for the original
+variables that were paired (typically `pairmi_result$original.variables`).}
 
-\item{sets}{The information on the sets from the pairmi function (Data.frame object)}
+\item{sets}{A data frame returned by [pairmi()] describing the sets. Must
+contain the columns required by `setmapmi()` (e.g., identifiers for sets
+and their constituent variables).}
 
-\item{n_elements}{The depth of sets that you want to visualize (Integer)}
+\item{n_elements}{Integer scalar giving the set size (depth) to visualize
+(e.g., `2` for pairs, `3` for triplets). Must be >= 1 and present in
+`sets`.}
 }
 \value{
-A setmap showing which original variables make up the sets at a certain depth
+A setmap showing which original variables make up the sets at a
+  certain depth
 }
 \description{
-A function that creates a setmap based on the output of the pairmi function
+Creates a set map visualization from the output of [pairmi()],
+showing which original variables compose the derived sets at a specified
+depth.
 }
 \examples{
 pairmiresult = pairmi(misimdata[,2:6])

@@ -1,9 +1,11 @@
 #' zprob
-#' @description z score for proportion (probability) differing from zero. To insure that distress is occurring a nonzero proportion of time
+#' @description Computes the z-score for testing whether the proportion (probability) of
+#'   successes in `x` differs from zero.
 #'
-#' @param x Variable (vector)
-#'
-#' @return A numerical value
+#' @param x A numeric or logical vector representing binary outcomes
+#'   (e.g., 0/1 or TRUE/FALSE), from which the proportion is calculated.
+#'   
+#' @return A numeric value giving the z-score for the observed proportion.
 #' @export
 #'
 #' @examples
