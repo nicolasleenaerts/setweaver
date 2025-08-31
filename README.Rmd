@@ -15,6 +15,7 @@ knitr::opts_chunk$set(
 
 <!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version/setweaver)](https://CRAN.R-project.org/package=setweaver)
+[![R-CMD-check](https://github.com/nicolasleenaerts/setweaver/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/nicolasleenaerts/setweaver/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 *setweaver* is an R package designed to help users create sets of variables based on a mutual information approach. In this context, a set is a collection of distinct elements (e.g., variables) that can also be treated as a single entity. Mutual information, a concept from probability theory, quantifies the dependence between two variables by expressing how much information about one variable can be gained from observing the other.
