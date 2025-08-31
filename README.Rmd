@@ -71,6 +71,6 @@ evaluated_sets = probstat(misimdata$y,results$expanded.data[,results$sets$set],n
 knitr::kable(evaluated_sets[c(1:5),],caption = 'Table 3. Evaluated sets',align = c('c'))
 ```
 
-## More informations
+## More information
 
 Consult the vignette for more detailed information!
