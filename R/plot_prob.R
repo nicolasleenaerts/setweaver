@@ -52,7 +52,7 @@ plot_prob <- function(data,
                        edge_label_color = "black",
                        min_arrow_width = 1,
                        max_arrow_width = 10,
-                       node_size = 40,
+                       node_size = 45,
                        label_cex = 0.8) {
   
   # --- Input Validation ---
@@ -116,7 +116,7 @@ plot_prob <- function(data,
     if(base::length(x_vars) > 0) {
       for (x_var in x_vars) {
         # Subset data where Xi=1
-        subset_data <- dplyr::filter(selected_data[[x_var]] == 1)
+        subset_data <- selected_data[selected_data[[x_var]] == 1, ]
         
         if (base::nrow(subset_data) > 0) {
           # Calculate P(Y=1) within the subset
@@ -239,7 +239,7 @@ plot_prob <- function(data,
   display_names <- base::sapply(node_names, function(x){get_display_name(var_labels,x)}, USE.NAMES = FALSE)
   
   # Create node labels using display names and formatted probabilities
-  node_labels <- base::sprintf("P(%s)\n%.*f", display_names, prob_digits, marg_p_values)
+  node_labels <- base::sprintf("%s\nP=%.*f", display_names, prob_digits, marg_p_values)
   
   nodes <- base::data.frame(
     name = node_names, # Internal name for igraph structure

@@ -19,7 +19,7 @@ plot_prob(
   edge_label_color = "black",
   min_arrow_width = 1,
   max_arrow_width = 10,
-  node_size = 40,
+  node_size = 45,
   label_cex = 0.8
 )
 }
