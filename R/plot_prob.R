@@ -239,7 +239,7 @@ plot_prob <- function(data,
   display_names <- base::sapply(node_names, function(x){get_display_name(var_labels,x)}, USE.NAMES = FALSE)
   
   # Create node labels using display names and formatted probabilities
-  node_labels <- base::sprintf("%s\nP=%.*f", display_names, prob_digits, marg_p_values)
+  node_labels <- base::sprintf("%s\nP = %.*f", display_names, prob_digits, marg_p_values)
   
   nodes <- base::data.frame(
     name = node_names, # Internal name for igraph structure
