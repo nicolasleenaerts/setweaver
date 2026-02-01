@@ -28,12 +28,27 @@ setmapmi <- function(original_variables = NULL,sets=NULL,n_elements=NULL){
   # Split pairs into sets
   combos = base::sapply(original_variables,function(x){base::apply(sets['set'],1,function(y){base::grepl(x,y)})})
   combos = base::apply(combos,1, function(x) base::list(base::names(base::which(x))))
-  combos = base::unname(base::lapply(combos, "[[", 1))
-
-  # Create Venn object
-  sets = RVenn::Venn(combos)
+  combos = base::lapply(combos, "[[", 1)
+  names(combos) <- paste0("set_", names(combos))
+  
+  # Get variable names
+  u = sort(unique(unlist(combos, use.names = FALSE)))
+  
+  # Create matrix
+  m = base::sapply(combos, function(x) u %in% x) * 1L
+  rownames(m) = u
+  colnames(m) = base::names(combos)
 
   # Create setmap
-  return(RVenn::setmap(sets))
+  return(pheatmap::pheatmap(
+    m,
+    color = c("red", "#1a9850"),
+    legend_breaks = c(0, 1),
+    legend_labels = c("Absent", "Present"),
+    border_color = "white",
+    angle_col = 90, 
+    show_colnames = TRUE,
+    show_rownames = TRUE
+  ))
 }
 

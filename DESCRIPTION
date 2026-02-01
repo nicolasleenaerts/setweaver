@@ -24,7 +24,7 @@ Imports:
     dplyr (>= 1.1.4),
     igraph (>= 2.1.2),
     permutes (>= 2.8),
-    RVenn (>= 1.1.0),
+    pheatmap (>= 1.0.13),
     splitTools (>= 1.0.1)
 Encoding: UTF-8
 LazyData: true
