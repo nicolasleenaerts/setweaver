@@ -7,7 +7,7 @@
 entropy(x)
 }
 \arguments{
-\item{x}{A binary vector (numeric coded as 0/1 or logical). Must be length ≥ 1.}
+\item{x}{A binary vector (numeric coded as 0/1 or logical). Must be length >= 1.}
 }
 \value{
 A numeric scalar giving the entropy of `x`.

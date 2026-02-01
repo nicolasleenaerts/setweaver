@@ -17,7 +17,7 @@ implementation if not supplied).}
 overrides `alpha`-based filtering.}
 
 \item{n_elements}{Integer giving the maximum size of sets to evaluate (e.g.,
-`2` for pairs, `3` for triplets). Must be ≥ 2.}
+`2` for pairs, `3` for triplets). Must be >= 2.}
 
 \item{sep}{String used to join variable names when forming set identifiers
 (e.g., `"_"`).}

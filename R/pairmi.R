@@ -10,7 +10,7 @@
 #' @param MI.threshold Numeric mutual information threshold. If provided, it
 #'   overrides `alpha`-based filtering.
 #' @param n_elements Integer giving the maximum size of sets to evaluate (e.g.,
-#'   `2` for pairs, `3` for triplets). Must be ≥ 2.
+#'   `2` for pairs, `3` for triplets). Must be >= 2.
 #' @param sep String used to join variable names when forming set identifiers
 #'   (e.g., `"_"`).
 #'

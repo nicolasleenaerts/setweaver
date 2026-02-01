@@ -19,7 +19,7 @@ Description: Create sets of variables based on a mutual
     variables.
 License: CC BY 4.0
 Depends: 
-    R (>= 2.10)
+    R (>= 4.1.0)
 Imports: 
     dplyr (>= 1.1.4),
     igraph (>= 2.1.2),
